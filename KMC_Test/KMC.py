@@ -8,10 +8,32 @@ inputs=['A19','B28','C23','D4','E78','F90','G32','H54','I32','J12','J67','L90','
 inputs=sorted(inputs,key=lambda x:int(re.findall(r'\d+$',x)[0]))
 inputs.reverse()
 print(inputs)
+
+
 #People must stand in a queue
 q=queue.Queue()
 
-j=0
+#filter the queue by alphebet
+for x in range(len(inputs)-1):
+    print(inputs[x])
+    
+    if int(inputs[x][1:])==int(inputs[x+1][1:]):
+        
+        
+        s=[]
+        s.append(inputs[x])
+        s.append(inputs[x+1])
+
+        #sort by Alphabet
+        s.sort()
+        print(s)
+        inputs[x]=s[0]
+        inputs[x+1]=s[1]
+            
+
+print(inputs)
+
+
 z=[]
 for i in inputs:
     #**No under 18 persons are allowed**
@@ -23,7 +45,7 @@ for i in inputs:
         #All those who are allowed
         q.put((int(i[1:]),i))
         z.append(i)
-       # print(i)
+       #print(i)
         
     
 
