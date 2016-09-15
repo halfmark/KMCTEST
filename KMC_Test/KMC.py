@@ -1,57 +1,54 @@
 import re
 import queue
 
-inputs=['A19','B28','C23','D4','E78','F90','G32','H54','I32','J12','J67','L90','M87','N6','O36','P12','Q24']
 
-#sort the inputs **All the older people must enter the premises first**
+class WhooziJuicy:
 
-inputs=sorted(inputs,key=lambda x:int(re.findall(r'\d+$',x)[0]))
-inputs.reverse()
-print(inputs)
-
-
-#People must stand in a queue
-q=queue.Queue()
-
-#filter the queue by alphebet
-for x in range(len(inputs)-1):
-    print(inputs[x])
-    
-    if int(inputs[x][1:])==int(inputs[x+1][1:]):
+    def _init_(self,people):
+        self.lists=people
         
-        
-        s=[]
-        s.append(inputs[x])
-        s.append(inputs[x+1])
+    def Entry_Rules(self):
+        #filter by digits next to alphabet ***Elders must enter the premises first*
+        New_sorted_List=sorted(self.lists,key=lambda x:int(re.findall(r'\d+$',x)[0]))
+        New_sorted_List.reverse()
 
-        #sort by Alphabet
-        s.sort()
-        print(s)
-        inputs[x]=s[0]
-        inputs[x+1]=s[1]
+        #People must stand in a queue
+        Q_IN_queue=queue.Queue()
+
+        #filter the queue by alphebet
+        for item in range(len(New_sorted_List)-1):
             
+            
+            if int(New_sorted_List[item][1:])==int(New_sorted_List[item+1][1:]):
+                
+                array=[]
+                array.append(New_sorted_List[item])
+                array.append(New_sorted_List[item+1])
 
-print(inputs)
+                #sort by Alphabet
+                array.sort()
+                New_sorted_List[item]=array[0]
+                New_sorted_List[item+1]=array[1]
+                    
 
-
-z=[]
-for i in inputs:
-    #**No under 18 persons are allowed**
-    #select the age of the person and check if the person is allowed or not
-    if int(i[1:]) < 18:
-        print ("This person is not allowed ",i)
-
-    else:
-        #All those who are allowed
-        q.put((int(i[1:]),i))
-        z.append(i)
-       #print(i)
         
-    
-
-    
-print(z)
-#
-while not q.empty():
-    
-    print(q.get())
+        
+        for item in New_sorted_List:
+            #**No under 18 persons are allowed**
+            #select the age of the person and check if the person is allowed or not
+            if int(item[1:]) < 18 :
+                print ("This person is not allowed ",item)
+            elif int(item[1:]) == 90 :
+                 print ("This nightclub is not able to assist this person",item)
+            else:
+                #All those who are allowed
+                Q_IN_queue.put(item)
+               
+               
+                
+        while not Q_IN_queue.empty():
+            print("Person ",Q_IN_queue.get(),"Enters the premises")
+   
+        
+        
+        
